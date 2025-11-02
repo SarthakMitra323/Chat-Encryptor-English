@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chat Encryptor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>🔐 Chat Encryptor</h1>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>Encryption</h2>
+      <label class="sr-only" for="encrypt-input">Enter message to encrypt</label>
+      <textarea id="encrypt-input" class="input" placeholder="Type or paste your message here…" rows="6"></textarea>
+      <button id="encrypt-btn" class="btn primary">Encrypt Message</button>
+
+      <div class="output-wrap">
+        <div id="encrypt-output" class="output" aria-live="polite"></div>
+        <button id="copy-encrypted" class="btn ghost" title="Copy encrypted text">Copy</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Decryption</h2>
+      <label class="sr-only" for="decrypt-input">Paste encrypted text</label>
+      <textarea id="decrypt-input" class="input" placeholder="Paste encrypted text here…" rows="6"></textarea>
+      <button id="decrypt-btn" class="btn secondary">Decrypt Message</button>
+
+      <div class="output-wrap">
+        <div id="decrypt-output" class="output" aria-live="polite"></div>
+        <button id="copy-decrypted" class="btn ghost" title="Copy decrypted text">Copy</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">Made with ❤️ using Python</footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
