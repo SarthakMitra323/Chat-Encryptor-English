@@ -1,23 +1,21 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/*.py",
-      "use": "@vercel/python"
-    }
-  ],
+  "buildCommand": "pip install -r requirements.txt",
   "routes": [
     {
       "src": "/static/(.*)",
       "dest": "/static/$1"
     },
     {
-      "src": "/api/(encrypt|decrypt)",
-      "dest": "/api/$1.py"
+      "src": "/api/encrypt",
+      "dest": "/api/encrypt.py"
+    },
+    {
+      "src": "/api/decrypt",
+      "dest": "/api/decrypt.py"
     },
     {
       "src": "/(.*)",
-      "dest": "/templates/index.html"
+      "dest": "/index.html"
     }
   ]
 }
