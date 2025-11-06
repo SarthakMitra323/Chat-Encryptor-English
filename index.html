@@ -33,12 +33,36 @@
       <h2>Decryption</h2>
       <label class="sr-only" for="decrypt-input">Paste encrypted text</label>
       <textarea id="decrypt-input" class="input" placeholder="Paste encrypted text here…" rows="6"></textarea>
+      <label class="sr-only" for="decrypt-password">Decryption password</label>
+      <input id="decrypt-password" class="input" type="password" placeholder="Enter password (required)" />
       <button id="decrypt-btn" class="btn secondary">Decrypt Message</button>
 
       <div class="output-wrap">
         <div id="decrypt-output" class="output" aria-live="polite"></div>
         <button id="copy-decrypted" class="btn ghost" title="Copy decrypted text">Copy</button>
       </div>
+    </section>
+
+    <!-- About section -->
+    <section class="panel wide about">
+      <h2>About this website</h2>
+      <p>
+        Chat Encryptor is a fast, privacy-friendly tool to transform your messages
+        using a custom, fully reversible cipher. It runs statelessly in the cloud—
+        no accounts, no databases, no stored messages.
+      </p>
+      <ul>
+        <li>Vowel substitution with unique Unicode symbols</li>
+        <li>Reverses every 3rd word (per line)</li>
+        <li>Letter-only Caesar shift (+3 / -3, digits unchanged)</li>
+        <li>Random salt separators for obfuscation</li>
+      </ul>
+
+      <h3>About the author</h3>
+      <p>
+        Built by <a class="about-link" href="https://connectsphereofficial.vercel.app/" target="_blank" rel="noopener noreferrer">ConnectSphere</a>.
+        Visit the website to learn more, explore projects, and get in touch.
+      </p>
     </section>
   </main>
 
