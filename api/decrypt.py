@@ -15,6 +15,15 @@ class handler(BaseHTTPRequestHandler):
             data = json.loads(body)
             
             text = data.get('text', '')
+            password = data.get('password')
+            if str(password) != '1801':
+                response = json.dumps({"error": "Invalid password"})
+                self.send_response(401)
+                self.send_header('Content-Type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                self.wfile.write(response.encode())
+                return
             decrypted = decrypt_text(text)
             
             response = json.dumps({"decrypted": decrypted})
