@@ -7,7 +7,17 @@ app = Flask(__name__, static_folder='../static', template_folder='../templates')
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Look first in root index.html (moved for Vercel), fall back to templates folder.
+    try:
+        return render_template('index.html')
+    except Exception:
+        # If template not found (during local dev after moving index to root), serve static file.
+        from flask import send_file
+        import os
+        root_index = os.path.join(os.path.dirname(__file__), '..', 'index.html')
+        if os.path.exists(root_index):
+            return send_file(root_index)
+        raise
 
 
 @app.post('/api/encrypt')
@@ -31,8 +41,16 @@ def api_decrypt():
         raise BadRequest('Expected JSON body')
     data = request.get_json(silent=True) or {}
     text = data.get('text')
+    password = data.get('password')
     if text is None:
         raise BadRequest('Missing "text" field')
+    # Password check (backend enforced)
+    try:
+        # Accept both string and int representations
+        if str(password) != '1801':
+            return jsonify({"error": "Invalid password"}), 401
+    except Exception:
+        return jsonify({"error": "Invalid password"}), 401
     try:
         decrypted = decrypt_text(text)
         return jsonify({"decrypted": decrypted})
