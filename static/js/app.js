@@ -7,8 +7,15 @@ async function postJSON(url, data) {
     body: JSON.stringify(data)
   });
   if (!res.ok) {
-    const text = await res.text().catch(() => '');
-    throw new Error(`HTTP ${res.status}: ${text}`);
+    // Try to parse JSON error for nicer message
+    try {
+      const j = await res.json();
+      const msg = (j && j.error) ? j.error : JSON.stringify(j);
+      throw new Error(`HTTP ${res.status}: ${msg}`);
+    } catch (_) {
+      const text = await res.text().catch(() => '');
+      throw new Error(`HTTP ${res.status}: ${text}`);
+    }
   }
   return res.json();
 }
@@ -48,11 +55,15 @@ async function handleEncrypt() {
 
 async function handleDecrypt() {
   const input = $('#decrypt-input').value;
+  const password = $('#decrypt-password')?.value || '';
   const btn = $('#decrypt-btn');
   setLoading(btn, true);
   setOutput('#decrypt-output', '');
   try {
-    const data = await postJSON('/api/decrypt', { text: input });
+    if (!password) {
+      throw new Error('Password required');
+    }
+    const data = await postJSON('/api/decrypt', { text: input, password });
     setOutput('#decrypt-output', data.decrypted || '');
   } catch (err) {
     console.error(err);
@@ -86,4 +97,3 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
-
